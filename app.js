@@ -19,6 +19,9 @@ app.use(
     extended: true,
   })
 );
+app.get("/", (req, res) => {
+  res.send("Hello World!");
+});
 
 app.use("/user", users);
 
