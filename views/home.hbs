@@ -1,0 +1,65 @@
+<html>
+
+<head>
+    <title>home</title>
+    <style>
+        table {
+            margin-top: 5%;
+            border-collapse: collapse;
+        }
+
+        table,
+        td,
+        th {
+            border: 1px solid black;
+        }
+    </style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Data</h1>
+        <a class="btn btn-success" href="/user/add">Add User</a>
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Password</th>
+            </tr>
+            <tbody id="showData">
+
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                type: "GET",
+                url: "/user/get",
+                success: function (data) {
+                    if (data.status) {
+                        var htmlTable = "";
+                        for (var i = 0; i < data.result.length; i++) {
+                            console.log(data.result[i]);
+                            htmlTable+=`<tr><td>${data.result[i].name}</td>`;
+                            htmlTable+=`<td>${data.result[i].email}</td>`;
+                            htmlTable+=`<td>${data.result[i].password}</td></tr>`;
+                        }
+                        $("#showData").html(htmlTable);
+                    }
+
+                }
+            });
+        });
+
+
+    </script>
+</body>
+
+</html>
